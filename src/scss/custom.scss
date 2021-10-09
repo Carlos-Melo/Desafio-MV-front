@@ -1,0 +1,19 @@
+* {font-family: 'Poppins', sans-serif;}
+
+$primary-color: #825FF5;
+$secondary-color: #1D1536;
+$bg-color: #F2F1F8;
+$gray: #A2A2A2;
+$light-gray: #e0e0e0;
+$dark-gray: #616161;
+
+$theme-colors:(
+  "primary-color": $primary-color,
+  "secondary-color": $secondary-color,
+  "bg-color": $bg-color,
+  "gray": $gray,
+  "light-gray": $light-gray,
+  "dark-gray": $dark-gray
+);
+
+@import '~bootstrap/scss/bootstrap';
