@@ -1,16 +1,15 @@
+//Install express server
 const express = require('express');
-//const path = require('path');
+const path = require('path');
+
 const app = express();
 
-const PORT = process.env.PORT || 8080;
+// Serve only the static files form the dist directory
+app.use(express.static('./dist/desafio-mv'));
 
-app.use(express.static(__dirname + '/dist/desafio-mv'));
+app.get('/*', (req, res) =>
+    res.sendFile('index.html', {root: 'dist/desafio-mv/'}),
+);
 
-app.get('/*', (req, res) => {
-res.sendFile(__dirname + '/dist/desafio-mv/index.html');
-});
-
-app.listen(PORT, () => {
-  console.log('Servidor iniciado com sucesso' + PORT);
-})
-
+// Start the app by listening on the default Heroku port
+app.listen(process.env.PORT || 8080);
