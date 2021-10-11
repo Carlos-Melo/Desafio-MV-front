@@ -8,7 +8,7 @@ import { take } from 'rxjs/operators';
 })
 export class ParticipantesService {
 
-  private readonly API = 'http://localhost:8080/user';
+  private readonly API = 'https://desafioback-carlos.herokuapp.com/user';
 
   constructor(private http: HttpClient) { }
 
