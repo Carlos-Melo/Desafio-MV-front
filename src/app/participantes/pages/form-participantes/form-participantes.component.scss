@@ -1,11 +1,9 @@
-@import '../../../../scss/custom.scss';
-
 input[type=text], [type=number] {
   border-radius: 5px;
-  border: solid 2px $gray;
+  border: solid 2px #A2A2A2;
   outline: none;
   &:focus {
-    border: solid 2px $primary-color;
+    border: solid 2px #825FF5;
     box-shadow: none;
   }
 }
