@@ -7,11 +7,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-postbuild": "ng build --prod"
+    "postinstall": "ng build --aot --prod"
   },
   "engines": {
-    "node": "10.15.3",
-    "npm": "6.9.0"
+    "node": "10.13.0",
+    "npm": "6.4.1"
   },
   "private": true,
   "dependencies": {
