@@ -1,25 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Participante } from './model/participante';
+import { HttpClient } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParticipantesService {
 
-  participantes: Participante[] = [
-    { id: 1, nome: 'Carlos', cpf: '11111111111', colaboracao: 'Pão com mortadela' },
-    { id: 2, nome: 'João', cpf: '000.000.000-00', colaboracao: 'Guaravita' },
-  ]
+  private readonly API = 'http://localhost:8080/user';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAllParticipantes() {
-    //get
-    return this.participantes
+  listar() {
+    return this.http.get<Participante[]>(this.API);
   }
 
-  editParticipante(id: number): Participante {
-    //get
-    return this.participantes.find((participante: Participante) => participante.id === id);
+  adicionar(participante: Participante) {
+    return this.http.post(this.API, participante).pipe(take(1));
   }
+
+  getEditar(id: number) {
+    return this.http.get(`${this.API}/${id}`).pipe(take(1));
+  }
+
+  setEditar(participante: any) {
+    return this.http.put(`${this.API}`, participante).pipe(take(1));
+  }
+
+  excluir(id: number) {
+    return this.http.delete(`${this.API}/${id}`).pipe(take(1));
+  }
+
 }

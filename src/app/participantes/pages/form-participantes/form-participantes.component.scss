@@ -6,6 +6,7 @@ input[type=text], [type=number] {
   outline: none;
   &:focus {
     border: solid 2px $primary-color;
+    box-shadow: none;
   }
 }
 

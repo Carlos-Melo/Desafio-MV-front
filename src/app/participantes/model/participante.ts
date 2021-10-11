@@ -1,6 +1,8 @@
-export interface Participante {
-  id: number;
+import { Comida } from "./comida";
+
+export class Participante {
+  id?: number;
   nome: string;
   cpf: string;
-  colaboracao: string;
+  food: Comida[];
 }

@@ -8,7 +8,7 @@
 
   <div class="d-flex justify-content-between py-3">
     <h5 class="text-secondary-color">Café da Manhã <i class="fas fa-coffee"></i></h5>
-    <button routerLink="" class="bg-primary-color border-0 rounded px-3 py-1 text-white">Voltar</button>
+    <button routerLink="" class="bg-primary-color border-0 rounded px-3 py-1 text-white" (click)="setarEditarFalse()">Voltar</button>
   </div>
 
   <div class="bg-white pb-3 rounded p-3">
@@ -17,25 +17,46 @@
         <input class="form-control col-12 p-2" type="text" placeholder="Nome" id="nome" [ngClass]="aplicaCssErro('nome')" formControlName="nome" minlength="3" maxlength="20" >
         <div class="invalid-feedback">
           <p *ngIf="formulario.controls['nome'].errors?.required">Preenchimento obrigatório</p>
-          <p *ngIf="formulario.controls['nome'].errors?.minlength">Precisa conter mais de dois caracteres</p>
+          <p *ngIf="formulario.controls['nome'].errors?.minlength">Precisa conter mais de três caracteres</p>
         </div>
       </div>
       <div class="mb-4">
-        <input class="form-control col-12 p-2" type="text" placeholder="CPF" id="cpf" [ngClass]="aplicaCssErro('cpf')" formControlName="cpf" maxlength="11" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+        <input class="form-control col-12 p-2" mask="000.000.000-00" type="text" placeholder="CPF" id="cpf" [ngClass]="aplicaCssErro('cpf')" formControlName="cpf">
         <div class="invalid-feedback">
           <p *ngIf="formulario.controls['cpf'].errors?.required">Preenchimento obrigatório</p>
           <p *ngIf="formulario.controls['cpf'].errors?.minlength">CPF inválido</p>
         </div>
       </div>
       <div class="mb-5">
-        <input class="form-control col-12 p-2" type="text" placeholder="Colaboração" id="colaboracao" [ngClass]="aplicaCssErro('colaboracao')" formControlName="colaboracao" minlength="3" maxlength="30">
-        <div class="invalid-feedback">
-          <p *ngIf="formulario.controls['colaboracao'].errors?.required">Preenchimento obrigatório</p>
-          <p *ngIf="formulario.controls['colaboracao'].errors?.minlength">Precisa conter mais de dois caracteres</p>
+        <div class="d-flex align-items-top mb-2">
+          <div class="col-12">
+            <input class="form-control p-2" type="text" placeholder="Colaboração" id="colaboracao" [ngClass]="aplicaCssErro('colaboracao')" formControlName="colaboracao" minlength="3" maxlength="30">
+            <div class="invalid-feedback">
+              <p *ngIf="formulario.controls['colaboracao'].errors?.required" class="mb-0">Preenchimento obrigatório</p>
+              <p *ngIf="formulario.controls['colaboracao'].errors?.minlength" class="mb-0">Precisa conter mais de três caracteres</p>
+            </div>
+          </div>
+          <div>
+            <button [hidden]="isEdit" type="button" (click)="addComida()" class="ms-3 btn-primary-color text-white border-0 rounded py-2 ">Adicionar</button>
+            <button [hidden]="!isEdit" type="button" (click)="editComida()" [disabled]="!isSelected" [ngClass]="!isSelected ? 'btn-gray' : 'btn-primary-color' " class="ms-3 btn-primary-color w-100 text-white border-0 rounded py-2 ">Alterar</button>
+          </div>
         </div>
+        <div [hidden]="isEdit">
+          <span *ngFor="let comida of comidas" class="bg-primary-color px-1 rounded text-white me-1">{{ comida.food }} </span>
+        </div>
+        <div [hidden]="!isEdit">
+          <p class="m-0">Selecione uma comida para edita-la:</p>
+          <span *ngFor="let comida of editarComida; let i = index" (click)="comidaSelecionada = comida.food" (click)="selecionada(comida.idFood, i)" class="bg-primary-color px-1 rounded text-white me-1" style="cursor: pointer;">{{ comida.food }} </span>
+        </div>
+
       </div>
       <div class="col-12 text-center">
-        <button type="submit" class="col-6 border-0 rounded btn-primary-color text-white py-2">Adicionar</button>
+        <button [hidden]="isEdit" type="submit" class="col-6 border-0 rounded btn-primary-color text-white py-2">Criar</button>
+        <div [hidden]="!isEdit">
+          <button  (click)="editar()" type="button" class="col-6 border-0 rounded btn-primary-color text-white me-2 py-2">Editar</button>
+          <button (click)="cancelar()" type="button" class="col-4 border-0 rounded btn-gray text-white py-2">Cancelar</button>
+        </div>
+
       </div>
     </form>
   </div>

@@ -5,6 +5,9 @@ import { ParticipantesRoutingModule } from './participantes-routing.module';
 import { ListParticipantesComponent } from './pages/list-participantes/list-participantes.component';
 import { FormParticipantesComponent } from './pages/form-participantes/form-participantes.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ParticipantesService } from './participantes.service';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -15,7 +18,12 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ParticipantesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxMaskModule.forRoot()
+  ],
+  providers: [
+    ParticipantesService
   ]
 })
 export class ParticipantesModule { }
